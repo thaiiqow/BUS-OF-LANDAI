@@ -35,7 +35,7 @@ const ROUTES_ANIVA = {
       { id: "sadyp", ru: "Сады", ld: "0", lat: 46.712081, lng: 142.541276, radius: 40 },
       { id: "kibanec_2", ru: "Кубанец-2", ld: "0", lat: 46.711335, lng: 142.550894, radius: 40 },
       { id: "kubanec_1", ru: "Кубанец-1", ld: "493828", lat: 46.718257, lng: 142.569071, radius: 40 },
-      { id: "peschanskoye",  ru: "Песчанское",  ld: "Pẹ̉shanxcoĕ",    lat: 46.723114, lng: 142.588463, radius: 40 }
+      { id: "peschanskoje",  ru: "Песчанское",  ld: "Pẹ̉shanxcoĕ",    lat: 46.723114, lng: 142.588463, radius: 40 }
     ]
   },
   "106": {
