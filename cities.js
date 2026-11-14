@@ -5,7 +5,8 @@
 // Чтобы добавить город: создайте routes_<город>.js с const ROUTES_<ГОРОД> = {...},
 // подключите его в index.html перед cities.js и добавьте строку ниже.
 const CITIES = {
-  landay: { ru: "Ландай", ld: "Lanđay", routes: ROUTES },
-yuzhno_sakhalinsk: { ru: "Южно-Сахалинск", ld: "Ŭdcno-Xakhalinxc", routes: ROUTES }
+  const CITIES = {
+  landay: { ru: "Ландай", ld: "Lanđai", routes: ROUTES },
+  yuzhno: { ru: "Южно-Сахалинск", ld: "Ŭdcno-Xakhalinxc", routes: ROUTES_YUZHNO }
   // example: { ru: "Название", ld: "Название (ld)", routes: ROUTES_EXAMPLE }
 };
