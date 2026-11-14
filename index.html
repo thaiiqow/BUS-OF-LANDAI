@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Табло автобуса</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600;800&display=swap">
+<style>
+:root{--bg:#0e2a5a;--panel:#163a78;--ink:#fff;--dim:#a9bde3;--accent:#ffc20e;--line:#4a6aa8}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Golos Text",system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden}
+header{display:flex;align-items:center;gap:2vw;padding:2vh 3vw;background:var(--panel)}
+.badge{background:var(--accent);color:#1a1a1a;font-weight:800;font-size:7vh;min-width:12vh;text-align:center;border-radius:1.5vh;padding:.5vh 2vh}
+.ends{flex:1;font-size:3.4vh;line-height:1.25}
+.ends b{font-weight:600}.ends span{color:var(--dim)}
+.clock{text-align:right}.clock .t{font-size:7vh;font-weight:800}.clock .d{font-size:2.6vh;color:var(--dim)}
+main{flex:1;display:flex;flex-direction:column;justify-content:center;padding:0 5vw;gap:4vh}
+.lbl{font-size:2.8vh;color:var(--dim)}
+.cur .ru{font-size:10vh;font-weight:800;line-height:1.05}
+.cur .ld{font-size:5vh;color:var(--accent);font-weight:600}
+.row{display:flex;gap:4vw}
+.row>div{flex:1}
+.nxt .ru{font-size:5.5vh;font-weight:600}.nxt .ld{font-size:3.2vh;color:var(--dim)}
+footer{padding:3vh 5vw 4vh;background:var(--panel)}
+.strip{display:flex;align-items:flex-start;position:relative}
+.strip::before{content:"";position:absolute;left:1%;right:1%;top:1.1vh;height:.6vh;background:var(--line)}
+.s{flex:1;text-align:center;position:relative;font-size:2.1vh;color:var(--dim);padding:0 .5vw}
+.s i{display:block;width:2.8vh;height:2.8vh;border-radius:50%;background:var(--bg);border:.5vh solid var(--line);margin:0 auto 1vh;position:relative}
+.s.done i{background:var(--line)}
+.s.now{color:var(--ink);font-weight:600}.s.now i{background:var(--accent);border-color:var(--accent)}
+#start{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:5vh;font-weight:600;cursor:pointer;z-index:9;text-align:center;padding:5vw}
+#start.hide{display:none}
+@media (prefers-reduced-motion:no-preference){.cur .ru{transition:opacity .4s}.cur.ch .ru{opacity:0}}
+</style>
+</head>
+<body>
+<div id="start">Нажмите, чтобы запустить табло и звук</div>
+<header>
+  <div class="badge" id="num"></div>
+  <div class="ends" id="ends"></div>
+  <div class="clock"><div class="t" id="time"></div><div class="d" id="date"></div></div>
+</header>
+<main>
+  <div class="cur" id="cur"><div class="lbl">Текущая остановка</div><div class="ru" id="cru"></div><div class="ld" id="cld"></div></div>
+  <div class="row">
+    <div class="nxt"><div class="lbl">Следующая</div><div class="ru" id="nru"></div><div class="ld" id="nld"></div></div>
+    <div class="nxt"><div class="lbl">Конечная</div><div class="ru" id="eru"></div><div class="ld" id="eld"></div></div>
+  </div>
+</main>
+<footer><div class="strip" id="strip"></div></footer>
+<script src="routes.js"></script>
+<script>
+// Маршрут выбирается в адресе: index.html?route=12 (по умолчанию — первый в routes.js)
+const params = new URLSearchParams(location.search);
+const route = ROUTES[params.get("route")] || Object.values(ROUTES)[0];
+const stops = route.stops;
+const $ = id => document.getElementById(id);
+let idx = 0;           // индекс текущей остановки
+let audioOn = false;
+
+function dist(a, b, c, d){ // метры между двумя точками
+  const R = 6371000, r = x => x * Math.PI / 180;
+  const h = Math.sin(r(c-a)/2)**2 + Math.cos(r(a))*Math.cos(r(c))*Math.sin(r(d-b)/2)**2;
+  return 2*R*Math.asin(Math.sqrt(h));
+}
+
+function render(){
+  const cur = stops[idx], nxt = stops[idx+1], first = stops[0], last = stops[stops.length-1];
+  $("num").textContent = route.number;
+  $("ends").innerHTML = `<b>${first.ru}</b> <span>(${first.ld})</span><br>→ <b>${last.ru}</b> <span>(${last.ld})</span>`;
+  $("cru").textContent = cur.ru; $("cld").textContent = cur.ld;
+  $("nru").textContent = nxt ? nxt.ru : "—"; $("nld").textContent = nxt ? nxt.ld : "";
+  $("eru").textContent = last.ru; $("eld").textContent = last.ld;
+  $("strip").innerHTML = stops.map((s,i) =>
+    `<div class="s ${i<idx?"done":i===idx?"now":""}"><i></i>${s.ru}</div>`).join("");
+}
+
+function arrive(i){
+  if (i === idx) return;
+  idx = i;
+  const c = $("cur"); c.classList.add("ch");
+  setTimeout(() => { render(); c.classList.remove("ch"); }, 300);
+  playStop(stops[i]);
+}
+
+function playStop(s){
+  if (!audioOn) return;
+  new Audio(`audio/${s.id}.mp3`).play().catch(() => {}); // один файл с обоими переводами
+}
+
+function tick(){
+  const n = new Date();
+  $("time").textContent = n.toLocaleTimeString("ru-RU", {hour:"2-digit", minute:"2-digit"});
+  $("date").textContent = n.toLocaleDateString("ru-RU", {weekday:"long", day:"numeric", month:"long", year:"numeric"});
+}
+
+// GPS: когда автобус входит в радиус одной из следующих остановок — переключаемся
+function onPos(p){
+  const {latitude:la, longitude:lo} = p.coords;
+  for (let j = idx+1; j < stops.length; j++){
+    if (dist(la, lo, stops[j].lat, stops[j].lng) <= stops[j].radius){ arrive(j); break; }
+  }
+}
+if (navigator.geolocation) navigator.geolocation.watchPosition(onPos, () => {}, {enableHighAccuracy:true, maximumAge:1000});
+
+// Проверка без GPS: стрелки → и ← на клавиатуре
+addEventListener("keydown", e => {
+  if (e.key === "ArrowRight" && idx < stops.length-1) arrive(idx+1);
+  if (e.key === "ArrowLeft" && idx > 0){ idx--; render(); }
+});
+
+$("start").onclick = () => { audioOn = true; $("start").classList.add("hide"); playStop(stops[idx]);
+  if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(()=>{}); };
+
+render(); tick(); setInterval(tick, 1000);
+</script>
+</body>
+</html>
