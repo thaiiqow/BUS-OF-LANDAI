@@ -67,7 +67,7 @@ const ROUTES_ANIVA = {
       { id: "magazin_terem", ru: "Магазин Терем", ld: "Магазин Терем", lat: 46.926037, lng: 142.645472, radius: 40 },
       { id: "reka_vahrushevka", ru: "Река Вахрушевка", ld: "Река Вахрушевка", lat: 46.931348, lng: 142.652118, radius: 40 },
       { id: "obyesdnaya_doroga", ru: "Объездная дорога", ld: "Объездная дорога", lat: 46.944764, lng: 142.677942, radius: 40 },
-      { id: "dachi", ru: "Дачи", ld: "Đachaxão", lat: 46.946496, lng: 142.681584, radius: 40 },
+      { id: "dachi", ru: "Дачи", ld: "Дачи", lat: 46.946496, lng: 142.681584, radius: 40 },
       { id: "snt_metallist", ru: "СНТ Металлист", ld: "СНТ Металлист", lat: 46.949734, lng: 142.688449, radius: 40 },
       { id: "abpr", ru: "Автобаза Почты России", ld: "Автобаза Почты России", lat: 46.957953, lng: 142.697400, radius: 40 },
       { id: "sleza", ru: "Слеза", ld: "Слеза", lat: 46.962515, lng: 142.699360, radius: 40 },
