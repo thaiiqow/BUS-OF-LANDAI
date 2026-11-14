@@ -91,7 +91,6 @@ footer{padding:3vh 5vw 4vh;background:var(--panel)}
 
 <script src="routes.js"></script>
 <script src="routes_yuzhno.js"></script>
-<script src="routes_aniva.js"></script>
 <script src="cities.js"></script>
 <script>
 const $ = id => document.getElementById(id);
@@ -145,11 +144,12 @@ function arrive(i){ if (i === idx) return; idx = i; swap(() => {}); playStop(i);
 let queueId = 0;
 function playQueue(files){            // элемент очереди — путь или список запасных путей
   const my = ++queueId; let i = 0;    // новая остановка прерывает старую очередь
+  const pre = files.map(f => { const a = new Audio([].concat(f)[0]); a.preload = "auto"; return a; }); // все файлы грузятся заранее
   const next = () => {
     if (my !== queueId || i >= files.length) return;
-    const alts = [].concat(files[i++]); let k = 0, done = false;
+    const n = i++, alts = [].concat(files[n]); let k = 0, done = false;
     const go = () => {
-      const a = new Audio(alts[k]);
+      const a = k === 0 ? pre[n] : new Audio(alts[k]);
       const fail = () => { if (done) return; if (++k < alts.length) go(); else { done = true; next(); } };
       a.onended = () => { done = true; next(); };
       a.onerror = fail; a.play().catch(fail);
