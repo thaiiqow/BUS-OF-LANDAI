@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Табло автобуса</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
 :root{--bg:#fff;--panel:#eaf1fc;--ink:#0b2f78;--dim:#5a74a8;--accent:#1a5fd6;--line:#b7c8e8}
 *{box-sizing:border-box}
@@ -35,11 +37,16 @@ footer{padding:3vh 5vw 4vh;background:var(--panel)}
 .btn:focus-visible,.sl:focus-visible{outline:.6vh solid var(--ink);outline-offset:.5vh}
 #start{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2vh;z-index:9;text-align:center;padding:4vw}
 #start.hide,#panel[hidden],.off{display:none}
-#menuBtn{position:fixed;right:2vw;bottom:15vh;z-index:5;font-size:2.4vh;padding:1.2vh 2.4vh}
+#menuBtn{position:fixed;right:28.5vw;bottom:15vh;z-index:5;font-size:2.4vh;padding:1.2vh 2.4vh}
 #hot{position:fixed;right:0;bottom:0;width:7vh;height:7vh;z-index:4}
 #panel{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:8;background:var(--bg);border:.5vh solid var(--accent);border-radius:2vh;padding:3vh 4vw;display:flex;flex-direction:column;align-items:center;gap:1.6vh;box-shadow:0 2vh 6vh rgba(11,47,120,.3);max-height:96vh;overflow:auto}
 #panel .sl{font-size:3vh}#panel .btn{font-size:3vh;padding:1.5vh 3vh}
 .pt{font-size:3.4vh;font-weight:800}
+.wrap{flex:1;display:flex;min-height:0}
+.left{flex:1;display:flex;flex-direction:column;min-width:0}
+#side{width:26vw;background:#1b1d22;padding:1.5vh;display:flex}
+#map{flex:1;background:#101216;border:.4vh solid #2d3139;border-radius:1.5vh}
+.bus{background:none;border:0}.bus span{display:block;width:36px;height:36px;line-height:30px;text-align:center;font-size:22px;border-radius:50%;background:#fff;border:3px solid #3b8cff;box-shadow:0 0 0 7px rgba(59,140,255,.3)}
 @media (prefers-reduced-motion:no-preference){.ends,main,.strip{transition:opacity .3s}body.sw .ends,body.sw main,body.sw .strip{opacity:0}}
 </style>
 </head>
@@ -56,6 +63,8 @@ footer{padding:3vh 5vw 4vh;background:var(--panel)}
   <div class="ends" id="ends"></div>
   <div class="clock"><div class="t" id="time"></div><div class="d" id="date"></div></div>
 </header>
+<div class="wrap">
+<div class="left">
 <main>
   <div class="cur"><div class="lbl">Текущая остановка</div><div class="a" id="ca"></div><div class="b" id="cb"></div></div>
   <div class="row">
@@ -64,6 +73,9 @@ footer{padding:3vh 5vw 4vh;background:var(--panel)}
   </div>
 </main>
 <footer><div class="strip" id="strip"></div></footer>
+</div>
+<aside id="side"><div id="map"></div></aside>
+</div>
 
 <button id="menuBtn" class="btn" type="button">☰ Маршрут</button>
 <div id="hot"></div>
@@ -84,6 +96,7 @@ footer{padding:3vh 5vw 4vh;background:var(--panel)}
 const $ = id => document.getElementById(id);
 const SWAP_MS = 7000;                 // смена языков на табло
 let cityId, route, stops, idx = 0, audioOn = false, lang = "ru";
+let map, routeLayer, bus, gps = null, needFit = true;
 const other = l => l === "ru" ? "ld" : "ru";
 
 // ---- выпадающие списки ----
@@ -100,7 +113,7 @@ function link(c, r, s){               // город -> маршруты -> ос�
 });
 
 function setRoute(c, r, i){
-  cityId = c; route = CITIES[c].routes[r]; stops = route.stops; idx = i; render();
+  cityId = c; route = CITIES[c].routes[r]; stops = route.stops; idx = i; needFit = true; render();
 }
 
 // ---- табло ----
@@ -117,6 +130,7 @@ function render(){
     const i = from + k;
     return `<div class="s ${i<idx?"done":i===idx?"now":""}"><i></i>${s[A]}</div>`;
   }).join("");
+  mapDraw();
 }
 function swap(fn){                    // плавная смена: затемнить -> обновить -> показать
   document.body.classList.add("sw");
@@ -153,12 +167,39 @@ function tick(){
 }
 function onPos(p){
   const {latitude:la, longitude:lo} = p.coords;
+  gps = [la, lo]; if (map) bus.setLatLng(busPos());
   const d = (a,b,c,e) => { const R=6371000, r=x=>x*Math.PI/180;
     const h=Math.sin(r(c-a)/2)**2+Math.cos(r(a))*Math.cos(r(c))*Math.sin(r(e-b)/2)**2; return 2*R*Math.asin(Math.sqrt(h)); };
   for (let j = idx+1; j < stops.length; j++)
     if (d(la, lo, stops[j].lat, stops[j].lng) <= stops[j].radius){ arrive(j); break; }
 }
 if (navigator.geolocation) navigator.geolocation.watchPosition(onPos, () => {}, {enableHighAccuracy:true, maximumAge:1000});
+
+// ---- карта справа: маршрут по координатам остановок, автобус — по GPS ----
+function mapInit(){
+  if (map || typeof L === "undefined") return;
+  map = L.map("map", {zoomControl:false, attributionControl:false, dragging:false, scrollWheelZoom:false,
+    doubleClickZoom:false, boxZoom:false, keyboard:false, touchZoom:false, zoomSnap:0, maxZoom:18});
+  routeLayer = L.layerGroup().addTo(map);
+  bus = L.marker([0,0], {icon:L.divIcon({className:"bus", html:"<span>🚌</span>", iconSize:[36,36]}), zIndexOffset:1000}).addTo(map);
+  addEventListener("resize", () => { needFit = true; mapDraw(); });
+}
+function busPos(){                     // GPS, если автобус рядом с маршрутом; иначе — текущая остановка
+  const pts = stops.map(x => [x.lat, x.lng]);
+  return gps && L.latLngBounds(pts).pad(0.5).contains(gps) ? gps : pts[idx];
+}
+function mapDraw(){
+  if (!map) return;
+  map.invalidateSize();
+  const pts = stops.map(x => [x.lat, x.lng]);
+  routeLayer.clearLayers();
+  L.polyline(pts.slice(0, idx+1), {color:"#4d5a73", weight:5, interactive:false}).addTo(routeLayer);   // пройдено
+  L.polyline(pts.slice(idx), {color:"#3b8cff", weight:5, interactive:false}).addTo(routeLayer);        // впереди
+  pts.forEach((c, i) => L.circleMarker(c, {radius:i===idx?7:4, color:i<idx?"#4d5a73":"#3b8cff", weight:2,
+    fillColor:i===idx?"#fff":"#101216", fillOpacity:1, interactive:false}).addTo(routeLayer));
+  bus.setLatLng(busPos());
+  if (needFit){ map.fitBounds(pts, {padding:[24,24]}); needFit = false; }
+}
 
 // ---- кнопка «Маршрут»: показать / скрыть ----
 function menuVisible(v){
@@ -187,7 +228,7 @@ $("go").onclick = () => {
   if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(()=>{});
 };
 
-setRoute($("citySel").value, $("routeSel").value, 0); tick(); setInterval(tick, 1000);
+mapInit(); setRoute($("citySel").value, $("routeSel").value, 0); tick(); setInterval(tick, 1000);
 </script>
 </body>
 </html>
