@@ -143,20 +143,28 @@ function arrive(i){ if (i === idx) return; idx = i; swap(() => {}); playStop(i);
 
 // ---- озвучка: «Остановка» + название, «Следующая остановка» + название ----
 let queueId = 0;
-function playQueue(files){
+function playQueue(files){            // элемент очереди — путь или список запасных путей
   const my = ++queueId; let i = 0;    // новая остановка прерывает старую очередь
   const next = () => {
     if (my !== queueId || i >= files.length) return;
-    const a = new Audio(files[i++]);
-    a.onended = next; a.onerror = next; a.play().catch(next);
+    const alts = [].concat(files[i++]); let k = 0, done = false;
+    const go = () => {
+      const a = new Audio(alts[k]);
+      const fail = () => { if (done) return; if (++k < alts.length) go(); else { done = true; next(); } };
+      a.onended = () => { done = true; next(); };
+      a.onerror = fail; a.play().catch(fail);
+    };
+    go();
   };
   next();
 }
-const aud = s => `audio/${cityId}/${encodeURIComponent(s.id)}.mp3`;
+// сначала звук города (audio/<город>/...), если нет — общий (audio/...)
+const c_ = f => [`audio/${cityId}/${f}`, `audio/${f}`];
+const aud = s => c_(`${encodeURIComponent(s.id)}.mp3`);
 function playStop(i){
   if (!audioOn) return;
-  const f = [`audio/${cityId}/phrases/stop.mp3`, aud(stops[i])];
-  if (stops[i+1]) f.push(`audio/${cityId}/phrases/next.mp3`, aud(stops[i+1]));
+  const f = [c_("phrases/stop.mp3"), aud(stops[i])];
+  if (stops[i+1]) f.push(c_("phrases/next.mp3"), aud(stops[i+1]));
   playQueue(f);
 }
 
