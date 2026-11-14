@@ -6,12 +6,12 @@
 <title>Табло автобуса</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600;800&display=swap">
 <style>
-:root{--bg:#0e2a5a;--panel:#163a78;--ink:#fff;--dim:#a9bde3;--accent:#ffc20e;--line:#4a6aa8}
+:root{--bg:#fff;--panel:#eaf1fc;--ink:#0b2f78;--dim:#5a74a8;--accent:#1a5fd6;--line:#b7c8e8}
 *{box-sizing:border-box}
 html,body{height:100%;margin:0}
 body{background:var(--bg);color:var(--ink);font-family:"Golos Text",system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden}
 header{display:flex;align-items:center;gap:2vw;padding:2vh 3vw;background:var(--panel)}
-.badge{background:var(--accent);color:#1a1a1a;font-weight:800;font-size:7vh;min-width:12vh;text-align:center;border-radius:1.5vh;padding:.5vh 2vh}
+.badge{background:var(--accent);color:#fff;font-weight:800;font-size:7vh;min-width:12vh;text-align:center;border-radius:1.5vh;padding:.5vh 2vh}
 .ends{flex:1;font-size:3.4vh;line-height:1.25}
 .ends b{font-weight:600}.ends span{color:var(--dim)}
 .clock{text-align:right}.clock .t{font-size:7vh;font-weight:800}.clock .d{font-size:2.6vh;color:var(--dim)}
@@ -32,8 +32,8 @@ footer{padding:3vh 5vw 4vh;background:var(--panel)}
 #start{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3vh;z-index:9;text-align:center;padding:5vw}
 .pick{font-size:3vh;color:var(--dim)}
 #routeSel{font:600 6vh "Golos Text",system-ui,sans-serif;background:var(--panel);color:var(--ink);border:.5vh solid var(--accent);border-radius:1.5vh;padding:1.5vh 4vh;min-width:30vh;text-align:center}
-#go{font:600 4vh "Golos Text",system-ui,sans-serif;background:var(--accent);color:#1a1a1a;border:0;border-radius:1.5vh;padding:2.5vh 4vh;cursor:pointer;max-width:90vw}
-#go:focus-visible,#routeSel:focus-visible{outline:.6vh solid #fff;outline-offset:.5vh}
+#go{font:600 4vh "Golos Text",system-ui,sans-serif;background:var(--accent);color:#fff;border:0;border-radius:1.5vh;padding:2.5vh 4vh;cursor:pointer;max-width:90vw}
+#go:focus-visible,#routeSel:focus-visible{outline:.6vh solid var(--ink);outline-offset:.5vh}
 #start.hide{display:none}
 @media (prefers-reduced-motion:no-preference){.cur .ru{transition:opacity .4s}.cur.ch .ru{opacity:0}}
 </style>
