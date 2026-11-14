@@ -17,32 +17,39 @@ header{display:flex;align-items:center;gap:2vw;padding:2vh 3vw;background:var(--
 .clock{text-align:right}.clock .t{font-size:7vh;font-weight:800}.clock .d{font-size:2.6vh;color:var(--dim)}
 main{flex:1;display:flex;flex-direction:column;justify-content:center;padding:0 5vw;gap:4vh}
 .lbl{font-size:2.8vh;color:var(--dim)}
-.cur .ru{font-size:10vh;font-weight:800;line-height:1.05}
-.cur .ld{font-size:5vh;color:var(--accent);font-weight:600}
-.row{display:flex;gap:4vw}
-.row>div{flex:1}
-.nxt .ru{font-size:5.5vh;font-weight:600}.nxt .ld{font-size:3.2vh;color:var(--dim)}
+.cur .a{font-size:8vh;font-weight:800;line-height:1.05;overflow-wrap:anywhere}
+.cur .b{font-size:4.5vh;color:var(--accent);font-weight:600;overflow-wrap:anywhere}
+.row{display:flex;gap:4vw}.row>div{flex:1}
+.nxt .a{font-size:5vh;font-weight:600;overflow-wrap:anywhere}.nxt .b{font-size:3vh;color:var(--dim);overflow-wrap:anywhere}
 footer{padding:3vh 5vw 4vh;background:var(--panel)}
 .strip{display:flex;align-items:flex-start;position:relative}
 .strip::before{content:"";position:absolute;left:1%;right:1%;top:1.1vh;height:.6vh;background:var(--line)}
-.s{flex:1;text-align:center;position:relative;font-size:2.1vh;color:var(--dim);padding:0 .5vw}
+.s{flex:1;text-align:center;position:relative;font-size:2.1vh;color:var(--dim);padding:0 .5vw;overflow-wrap:anywhere}
 .s i{display:block;width:2.8vh;height:2.8vh;border-radius:50%;background:var(--bg);border:.5vh solid var(--line);margin:0 auto 1vh;position:relative}
 .s.done i{background:var(--line)}
 .s.now{color:var(--ink);font-weight:600}.s.now i{background:var(--accent);border-color:var(--accent)}
-#start{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3vh;z-index:9;text-align:center;padding:5vw}
 .pick{font-size:3vh;color:var(--dim)}
-#routeSel{font:600 6vh "Golos Text",system-ui,sans-serif;background:var(--panel);color:var(--ink);border:.5vh solid var(--accent);border-radius:1.5vh;padding:1.5vh 4vh;min-width:30vh;text-align:center}
-#go{font:600 4vh "Golos Text",system-ui,sans-serif;background:var(--accent);color:#fff;border:0;border-radius:1.5vh;padding:2.5vh 4vh;cursor:pointer;max-width:90vw}
-#go:focus-visible,#routeSel:focus-visible{outline:.6vh solid var(--ink);outline-offset:.5vh}
-#start.hide{display:none}
-@media (prefers-reduced-motion:no-preference){.cur .ru{transition:opacity .4s}.cur.ch .ru{opacity:0}}
+.sl{font:600 4.5vh "Golos Text",system-ui,sans-serif;background:var(--panel);color:var(--ink);border:.5vh solid var(--accent);border-radius:1.5vh;padding:1.2vh 4vh;min-width:30vh;max-width:90vw;text-align:center}
+.btn{font:600 3.6vh "Golos Text",system-ui,sans-serif;background:var(--accent);color:#fff;border:0;border-radius:1.5vh;padding:2vh 4vh;cursor:pointer;max-width:90vw}
+.btn.sec{background:var(--panel);color:var(--ink)}
+.btn:focus-visible,.sl:focus-visible{outline:.6vh solid var(--ink);outline-offset:.5vh}
+#start{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2vh;z-index:9;text-align:center;padding:4vw}
+#start.hide,#panel[hidden],.off{display:none}
+#menuBtn{position:fixed;right:2vw;bottom:15vh;z-index:5;font-size:2.4vh;padding:1.2vh 2.4vh}
+#hot{position:fixed;right:0;bottom:0;width:7vh;height:7vh;z-index:4}
+#panel{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:8;background:var(--bg);border:.5vh solid var(--accent);border-radius:2vh;padding:3vh 4vw;display:flex;flex-direction:column;align-items:center;gap:1.6vh;box-shadow:0 2vh 6vh rgba(11,47,120,.3);max-height:96vh;overflow:auto}
+#panel .sl{font-size:3vh}#panel .btn{font-size:3vh;padding:1.5vh 3vh}
+.pt{font-size:3.4vh;font-weight:800}
+@media (prefers-reduced-motion:no-preference){.ends,main,.strip{transition:opacity .3s}body.sw .ends,body.sw main,body.sw .strip{opacity:0}}
 </style>
 </head>
 <body>
 <div id="start">
+  <label class="pick" for="citySel">Город</label>
+  <select id="citySel" class="sl"></select>
   <label class="pick" for="routeSel">Маршрут</label>
-  <select id="routeSel"></select>
-  <button id="go" type="button">Нажмите, чтобы запустить табло и звук</button>
+  <select id="routeSel" class="sl"></select>
+  <button id="go" class="btn" type="button">Нажмите, чтобы запустить табло и звук</button>
 </div>
 <header>
   <div class="badge" id="num"></div>
@@ -50,96 +57,136 @@ footer{padding:3vh 5vw 4vh;background:var(--panel)}
   <div class="clock"><div class="t" id="time"></div><div class="d" id="date"></div></div>
 </header>
 <main>
-  <div class="cur" id="cur"><div class="lbl">Текущая остановка</div><div class="ru" id="cru"></div><div class="ld" id="cld"></div></div>
+  <div class="cur"><div class="lbl">Текущая остановка</div><div class="a" id="ca"></div><div class="b" id="cb"></div></div>
   <div class="row">
-    <div class="nxt"><div class="lbl">Следующая</div><div class="ru" id="nru"></div><div class="ld" id="nld"></div></div>
-    <div class="nxt"><div class="lbl">Конечная</div><div class="ru" id="eru"></div><div class="ld" id="eld"></div></div>
+    <div class="nxt"><div class="lbl">Следующая</div><div class="a" id="na"></div><div class="b" id="nb"></div></div>
+    <div class="nxt"><div class="lbl">Конечная</div><div class="a" id="ea"></div><div class="b" id="eb"></div></div>
   </div>
 </main>
 <footer><div class="strip" id="strip"></div></footer>
+
+<button id="menuBtn" class="btn" type="button">☰ Маршрут</button>
+<div id="hot"></div>
+<div id="panel" hidden>
+  <div class="pt">Объявить маршрут</div>
+  <select id="pCity" class="sl" aria-label="Город"></select>
+  <select id="pRoute" class="sl" aria-label="Маршрут"></select>
+  <select id="pStop" class="sl" aria-label="Начать с остановки"></select>
+  <button id="pGo" class="btn" type="button">Включить и объявить</button>
+  <button id="pHide" class="btn sec" type="button">Скрыть кнопку (вернуть: клавиша M или угол экрана справа внизу)</button>
+  <button id="pClose" class="btn sec" type="button">Закрыть</button>
+</div>
+
 <script src="routes.js"></script>
+<script src="cities.js"></script>
 <script>
 const $ = id => document.getElementById(id);
-// Список маршрутов берётся из routes.js; выбор — на стартовом экране
-const sel = $("routeSel");
-Object.keys(ROUTES).forEach(k => sel.add(new Option(k, k)));
-let route = ROUTES[sel.value], stops = route.stops;
-let idx = 0;           // индекс текущей остановки
-let audioOn = false;
+const SWAP_MS = 7000;                 // смена языков на табло
+let cityId, route, stops, idx = 0, audioOn = false, lang = "ru";
+const other = l => l === "ru" ? "ld" : "ru";
 
-function dist(a, b, c, d){ // метры между двумя точками
-  const R = 6371000, r = x => x * Math.PI / 180;
-  const h = Math.sin(r(c-a)/2)**2 + Math.cos(r(a))*Math.cos(r(c))*Math.sin(r(d-b)/2)**2;
-  return 2*R*Math.asin(Math.sqrt(h));
+// ---- выпадающие списки ----
+const fillCities = s => { s.innerHTML = ""; Object.keys(CITIES).forEach(k => s.add(new Option(CITIES[k].ru, k))); };
+const fillRoutes = (c, r) => { r.innerHTML = ""; Object.keys(CITIES[c.value].routes).forEach(k => r.add(new Option(k, k))); };
+const fillStops  = (c, r, s) => { s.innerHTML = ""; CITIES[c.value].routes[r.value].stops.forEach((x, i) => s.add(new Option(x.ru, i))); };
+function link(c, r, s){               // город -> маршруты -> остановки
+  c.onchange = () => { fillRoutes(c, r); if (s) fillStops(c, r, s); };
+  r.onchange = () => { if (s) fillStops(c, r, s); };
+}
+[["citySel","routeSel"],["pCity","pRoute","pStop"]].forEach(([c,r,s]) => {
+  fillCities($(c)); fillRoutes($(c), $(r)); if (s) fillStops($(c), $(r), $(s));
+  link($(c), $(r), s && $(s));
+});
+
+function setRoute(c, r, i){
+  cityId = c; route = CITIES[c].routes[r]; stops = route.stops; idx = i; render();
 }
 
+// ---- табло ----
 function render(){
+  const A = lang, B = other(lang);
   const cur = stops[idx], nxt = stops[idx+1], first = stops[0], last = stops[stops.length-1];
   $("num").textContent = route.number;
-  $("ends").innerHTML = `<b>${first.ru}</b> <span>(${first.ld})</span><br>→ <b>${last.ru}</b> <span>(${last.ld})</span>`;
-  $("cru").textContent = cur.ru; $("cld").textContent = cur.ld;
-  $("nru").textContent = nxt ? nxt.ru : "—"; $("nld").textContent = nxt ? nxt.ld : "";
-  $("eru").textContent = last.ru; $("eld").textContent = last.ld;
-  $("strip").innerHTML = stops.map((s,i) =>
-    `<div class="s ${i<idx?"done":i===idx?"now":""}"><i></i>${s.ru}</div>`).join("");
+  $("ends").innerHTML = `<b>${first[A]}</b> <span>(${first[B]})</span><br>→ <b>${last[A]}</b> <span>(${last[B]})</span>`;
+  $("ca").textContent = cur[A]; $("cb").textContent = cur[B];
+  $("na").textContent = nxt ? nxt[A] : "—"; $("nb").textContent = nxt ? nxt[B] : "";
+  $("ea").textContent = last[A]; $("eb").textContent = last[B];
+  const from = Math.max(0, Math.min(idx - 1, stops.length - 7));   // окно из 7 остановок
+  $("strip").innerHTML = stops.slice(from, from + 7).map((s, k) => {
+    const i = from + k;
+    return `<div class="s ${i<idx?"done":i===idx?"now":""}"><i></i>${s[A]}</div>`;
+  }).join("");
 }
-
-function arrive(i){
-  if (i === idx) return;
-  idx = i;
-  const c = $("cur"); c.classList.add("ch");
-  setTimeout(() => { render(); c.classList.remove("ch"); }, 300);
-  playStop(stops[i]);
+function swap(fn){                    // плавная смена: затемнить -> обновить -> показать
+  document.body.classList.add("sw");
+  setTimeout(() => { fn(); render(); document.body.classList.remove("sw"); }, 300);
 }
+setInterval(() => swap(() => { lang = other(lang); }), SWAP_MS);
 
-// Озвучка: «Остановка» + название, затем «Следующая остановка» + название.
-// Каждый файл содержит оба перевода (ландайский и русский).
+function arrive(i){ if (i === idx) return; idx = i; swap(() => {}); playStop(i); }
+
+// ---- озвучка: «Остановка» + название, «Следующая остановка» + название ----
 let queueId = 0;
 function playQueue(files){
-  const my = ++queueId;          // новая остановка прерывает старую очередь
-  let i = 0;
+  const my = ++queueId; let i = 0;    // новая остановка прерывает старую очередь
   const next = () => {
     if (my !== queueId || i >= files.length) return;
     const a = new Audio(files[i++]);
-    a.onended = next; a.onerror = next;   // нет файла — идём дальше
-    a.play().catch(next);
+    a.onended = next; a.onerror = next; a.play().catch(next);
   };
   next();
 }
-function playStop(s){
+const aud = s => `audio/${cityId}/${encodeURIComponent(s.id)}.mp3`;
+function playStop(i){
   if (!audioOn) return;
-  const n = stops[stops.indexOf(s) + 1];
-  const files = ["audio/phrases/stop.mp3", `audio/${s.id}.mp3`];
-  if (n) files.push("audio/phrases/next.mp3", `audio/${n.id}.mp3`);
-  playQueue(files);
+  const f = [`audio/${cityId}/phrases/stop.mp3`, aud(stops[i])];
+  if (stops[i+1]) f.push(`audio/${cityId}/phrases/next.mp3`, aud(stops[i+1]));
+  playQueue(f);
 }
 
+// ---- время, GPS, клавиши ----
 function tick(){
   const n = new Date();
   $("time").textContent = n.toLocaleTimeString("ru-RU", {hour:"2-digit", minute:"2-digit"});
   $("date").textContent = n.toLocaleDateString("ru-RU", {weekday:"long", day:"numeric", month:"long", year:"numeric"});
 }
-
-// GPS: когда автобус входит в радиус одной из следующих остановок — переключаемся
 function onPos(p){
   const {latitude:la, longitude:lo} = p.coords;
-  for (let j = idx+1; j < stops.length; j++){
-    if (dist(la, lo, stops[j].lat, stops[j].lng) <= stops[j].radius){ arrive(j); break; }
-  }
+  const d = (a,b,c,e) => { const R=6371000, r=x=>x*Math.PI/180;
+    const h=Math.sin(r(c-a)/2)**2+Math.cos(r(a))*Math.cos(r(c))*Math.sin(r(e-b)/2)**2; return 2*R*Math.asin(Math.sqrt(h)); };
+  for (let j = idx+1; j < stops.length; j++)
+    if (d(la, lo, stops[j].lat, stops[j].lng) <= stops[j].radius){ arrive(j); break; }
 }
 if (navigator.geolocation) navigator.geolocation.watchPosition(onPos, () => {}, {enableHighAccuracy:true, maximumAge:1000});
 
-// Проверка без GPS: стрелки → и ← на клавиатуре
+// ---- кнопка «Маршрут»: показать / скрыть ----
+function menuVisible(v){
+  $("menuBtn").classList.toggle("off", !v);
+  try { localStorage.setItem("menuHidden", v ? "" : "1"); } catch(e){}
+}
+try { if (localStorage.getItem("menuHidden")) menuVisible(false); } catch(e){}
+$("menuBtn").onclick = () => { $("panel").hidden = false; };
+$("pClose").onclick = () => { $("panel").hidden = true; };
+$("pHide").onclick  = () => { menuVisible(false); $("panel").hidden = true; };
+$("hot").onclick    = () => menuVisible($("menuBtn").classList.contains("off"));
+$("pGo").onclick = () => {            // любой город / маршрут / остановка
+  audioOn = true; setRoute($("pCity").value, $("pRoute").value, +$("pStop").value);
+  $("panel").hidden = true; playStop(idx);
+};
+
 addEventListener("keydown", e => {
-  if (e.key === "ArrowRight" && idx < stops.length-1) arrive(idx+1);
+  if (e.key === "ArrowRight" && idx < stops.length-1) arrive(idx+1);   // проверка без GPS
   if (e.key === "ArrowLeft" && idx > 0){ idx--; render(); }
+  if (e.key === "m" || e.key === "M") menuVisible($("menuBtn").classList.contains("off"));
 });
 
-$("go").onclick = () => { route = ROUTES[sel.value]; stops = route.stops; idx = 0; render();
-  audioOn = true; $("start").classList.add("hide"); playStop(stops[idx]);
-  if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(()=>{}); };
+$("go").onclick = () => {
+  setRoute($("citySel").value, $("routeSel").value, 0);
+  audioOn = true; $("start").classList.add("hide"); playStop(0);
+  if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(()=>{});
+};
 
-render(); tick(); setInterval(tick, 1000);
+setRoute($("citySel").value, $("routeSel").value, 0); tick(); setInterval(tick, 1000);
 </script>
 </body>
 </html>
