@@ -7,9 +7,9 @@ const ROUTES = {
     number: "212",
     stops: [
       { id: "AV lnd",  ru: "Автовокзал г.Ландай", ld: "Aòđonh", lat: 55.7512, lng: 37.6184, radius: 40 },
-      { id: "park",     ru: "Парк",                ld: "Парк (ld)",                lat: 55.7560, lng: 37.6250, radius: 40 },
-      { id: "school",   ru: "Школа",               ld: "Школа (ld)",               lat: 55.7610, lng: 37.6330, radius: 40 },
-      { id: "station",  ru: "Вокзал",              ld: "Вокзал (ld)",              lat: 55.7680, lng: 37.6420, radius: 40 }
+      { id: "peresvetskaja",     ru: "ул.Пересветская",                ld: "Cơu̇ Pẹ̉rẹ̉xvẹ̉txcaă",                lat: 55.7560, lng: 37.6250, radius: 40 },
+      { id: "shkola №7",   ru: "Школа №7",               ld: "Dil №7",               lat: 55.7610, lng: 37.6330, radius: 40 },
+      { id: "YS vokzal",  ru: "Ж/д Вокзал г.Южно-Сахалинск",              ld: "Kơrão ọt Aòđonh tói Ŭdcno-Xakhalinxc",              lat: 55.7680, lng: 37.6420, radius: 40 }
     ]
   },
   "7": {
