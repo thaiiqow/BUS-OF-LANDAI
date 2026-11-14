@@ -24,7 +24,7 @@ const ROUTES_YUZHNO = {
       { id: "avtosalon", ru: "Автосалон", ld: "0", lat: 46.894841, lng: 142.742153, radius: 40 },
       { id: "trk_city_mall", ru: "ТРК Сити Молл", ld: "0", lat: 46.899812, lng: 142.740353, radius: 40 },
       { id: "jk_roza_town", ru: "ЖК Роза Таун", ld: "0", lat: 46.905617, lng: 142.738519, radius: 40 },
-      { id: "avtorynok_fedorovka", ru: "Авторынок Фёдоровка", ld: "0", lat: 46.910159, lng; 142.737881, radius: 40 },
+      { id: "avtorynok_fedorovka", ru: "Авторынок Фёдоровка", ld: "0", lat: 46.910159, lng: 142.737881, radius: 40 },
       { id: "zavod_stroimaterialov", ru: "Завод стройматериалов", ld: "0", lat: 46.914222, lng: 142.737043, radius: 40 },
       { id: "bolshaya_yelanh", ru: "Большая Елань", ld: "0", lat: 46.919774, lng: 142.735739, radius: 40 },
       { id: "zavod_stroidetalh", ru: "Завод Стройдеталь", ld: "0", lat: 46.923321, lng: 142.734384, radius: 40 },
