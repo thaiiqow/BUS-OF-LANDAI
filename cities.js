@@ -6,5 +6,6 @@
 // подключите его в index.html перед cities.js и добавьте строку ниже.
 const CITIES = {
   landay: { ru: "Ландай", ld: "Lanđai", routes: ROUTES },
-  yuzhno: { ru: "Южно-Сахалинск", ld: "Ŭdcno-Xakhalinxc", routes: ROUTES_YUZHNO }
+  yuzhno: { ru: "Южно-Сахалинск", ld: "Ŭdcno-Xakhalinxc", routes: ROUTES_YUZHNO },
+  aniva: { ru: "Анива", ld: "Aniva", routes: ROUTES_ANIVA }
 };
