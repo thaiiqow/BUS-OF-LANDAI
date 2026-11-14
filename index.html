@@ -92,9 +92,26 @@ function arrive(i){
   playStop(stops[i]);
 }
 
+// Озвучка: «Остановка» + название, затем «Следующая остановка» + название.
+// Каждый файл содержит оба перевода (ландайский и русский).
+let queueId = 0;
+function playQueue(files){
+  const my = ++queueId;          // новая остановка прерывает старую очередь
+  let i = 0;
+  const next = () => {
+    if (my !== queueId || i >= files.length) return;
+    const a = new Audio(files[i++]);
+    a.onended = next; a.onerror = next;   // нет файла — идём дальше
+    a.play().catch(next);
+  };
+  next();
+}
 function playStop(s){
   if (!audioOn) return;
-  new Audio(`audio/${s.id}.mp3`).play().catch(() => {}); // один файл с обоими переводами
+  const n = stops[stops.indexOf(s) + 1];
+  const files = ["audio/phrases/stop.mp3", `audio/${s.id}.mp3`];
+  if (n) files.push("audio/phrases/next.mp3", `audio/${n.id}.mp3`);
+  playQueue(files);
 }
 
 function tick(){
