@@ -14,6 +14,18 @@ const ROUTES_YUZHNO = {
       { id: "rynok",  ru: "Рынок",  ld: "Ci",    lat: 46.963445, lng: 142.722886, radius: 40 }
     ]
   },
+  "107": {
+    number: "107",
+    stops: [
+      { id: "svetlaya", ru: "ул.Светлая", ld: "ул.Светлая", lat: 46.887390, lng: 142.688830, radius: 40 },
+      { id: "magazin_arbat", ru: "Новотроицое Арбат", ld: "Новотроицкое Арбат", lat: 46.892316, lng: 142.687405, radius: 40 },
+      { id: "kolcevoye_dvijeniye", ru: "Кольцевое движение", ld: "Кольцевое движение", lat: 46.896998, lng: 142.686624, radius: 40 },
+      { id: "jk_zp", ru: "ЖК Зелёная Планета", ld: "ЖК Зелёная Планета", lat: 46.901479, lng: 142.678668, radius: 40 },
+      { id: "dsr", ru: "Детский сад Радуга", ld: "Детский сад Радуга", lat: 46.917489, lng: 142.646013, radius: 40 },
+      { id: "magazin_terem", ru: "Магазин Терем", ld: "Магазин Терем", lat: 46.925998, lng: 142.645478, radius: 40 },
+      { id: "reka_vahrushevka",  ru: "Река Вахрушевка",  ld: "Река Вахрушевка",    lat: 46.930568, lng: 142.650959, radius: 40 }
+    ]
+  },
 "8": {
     number: "8",
     stops: [
