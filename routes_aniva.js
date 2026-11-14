@@ -1,43 +1,49 @@
 // Маршруты города Южно-Сахалинск (озвучка: audio/aniva/<id>.mp3)
 const ROUTES_ANIVA = {
-  "1": {
-    number: "1",
+  "102": {
+    number: "102",
     stops: [
-      { id: "vokzal", ru: "Вокзал", ld: "Kơrão", lat: 46.957181, lng: 142.726734, radius: 40 },
-      { id: "rynok",  ru: "Рынок",  ld: "Ci",    lat: 46.963445, lng: 142.722886, radius: 40 }
+      { id: "avtoniva", ru: "Автовокзал г.Анива", ld: "Kơrão", lat: 46.719538, lng: 142.524285, radius: 40 },
+      { id: "crb_potrb", ru: "ЦРБ (по требованию)", ld: "CRB", lat: 46.721474, lng: 142.515191, radius: 40 },
+      { id: "zarechnaya", ru: "ул.Заречная", ld: "zks", lat: 46.725967, lng: 142.509278, radius: 40 },
+      { id: "zolotorybnoye", ru: "Золоторыбное", ld: "Zlteb", lat: 46.674655, lng: 142.482640, radius: 40 },
+      { id: "pogranichnoye", ru: "Пограничное", ld: "0", lat: 46.665388, lng: 142.470782, radius: 40 },
+      { id: "pervomayskaya", ru: "ул.Первомайска", ld: "prvm", lat: 46.629239, lng: 142.435421, radius: 40 },
+      { id: "taranai",  ru: "Таранай",  ld: "0",    lat: 46.620890, lng: 142.428983, radius: 40 }
     ]
   },
-  "2": {
-    number: "2",
+  "103": {
+    number: "103",
     stops: [
-      { id: "vokzal", ru: "Вокзал", ld: "Kơrão", lat: 46.957181, lng: 142.726734, radius: 40 },
-      { id: "rynok",  ru: "Рынок",  ld: "Ci",    lat: 46.963445, lng: 142.722886, radius: 40 }
+      { id: "avtoniva", ru: "Автовокзал г.Анива", ld: "Kơrão", lat: 46.719538, lng: 142.524285, radius: 40 },
+      { id: "crb_potrb", ru: "ЦРБ (по требованию)", ld: "CRB", lat: 46.721474, lng: 142.515191, radius: 40 },
+      { id: "zarechnaya", ru: "ул.Заречная", ld: "zarech", lat: 46.727830, lng: 142.510439, radius: 40 },
+      { id: "sady", ru: "Сады", ld: "0", lat: 46.746278, lng: 142.510659, radius: 40 },
+      { id: "blagoveschenskoye", ru: "Благовещенское", ld: "0", lat: 46.756430, lng: 142.502751, radius: 40 },
+      { id: "urozhaynoye", ru: "Урожайное", ld: "0", lat: 46.788156, lng: 142.445555, radius: 40 },
+      { id: "syap", ru: "Сады Ясные Поляны", ld: "0", lat: 46.788667, lng: 142.437203, radius: 40 },
+      { id: "pnso", ru: "Поворот на с.Огоньки", ld: "0", lat: 46.789101, lng: 142.387467, radius: 40 },
+      { id: "vysokoye", ru: "Высокое", ld: "0", lat: 46.812713, lng: 142.318401, radius: 40 },
+      { id: "ogonki",  ru: "Огоньки",  ld: "Ogonhci",    lat: 46.780719, lng: 142.391550, radius: 40 }
     ]
   },
-"8": {
-    number: "8",
+  "104": {
+    number: "104",
     stops: [
-      { id: "airport", ru: "Аэропорт", ld: "Kơrão", lat: 46.888650, lng: 142.724821, radius: 40 },
-      { id: "snt_zarechniy", ru: "СНТ Заречный", ld: "XNT Zarẹ̉chnưy", lat: 46.886748, lng: 142.737540, radius: 40 },
-      { id: "aprh", ru: "Сквер Авиаторов", ld: "Kan khỏ ả Aviator", lat: 46.886720, lng: 142.742163, radius: 40 },
-      { id: "prh", ru: "Планировочный район Хомутово", ld: "h", lat: 46.888437, lng: 142.746625, radius: 40 },
-      { id: "avtosalon", ru: "Автосалон", ld: "0", lat: 46.894841, lng: 142.742153, radius: 40 },
-      { id: "trk_city_mall", ru: "ТРК Сити Молл", ld: "0", lat: 46.899812, lng: 142.740353, radius: 40 },
-      { id: "jk_roza_town", ru: "ЖК Роза Таун", ld: "0", lat: 46.905617, lng: 142.738519, radius: 40 },
-      { id: "avtorynok_fedorovka", ru: "Авторынок Фёдоровка", ld: "0", lat: 46.910159, lng: 142.737881, radius: 40 },
-      { id: "zavod_stroimaterialov", ru: "Завод стройматериалов", ld: "0", lat: 46.914222, lng: 142.737043, radius: 40 },
-      { id: "bolshaya_yelanh", ru: "Большая Елань", ld: "0", lat: 46.919774, lng: 142.735739, radius: 40 },
-      { id: "zavod_stroidetalh", ru: "Завод Стройдеталь", ld: "0", lat: 46.923321, lng: 142.734384, radius: 40 },
-      { id: "maremed", ru: "Маремед", ld: "0", lat: 46.927827, lng: 142.732992, radius: 40 },
-      { id: "zelhonaya", ru: "ул.Зелёная", ld: "Cơu̇ 0", lat: 46.932270, lng: 142.734049, radius: 40 },
-      { id: "11y_mikrorayon", ru: "11-й микрорайон", ld: "0", lat: 46.936109, lng: 142.734182, radius: 40 },
-      { id: "emelyanova", ru: "ул.Емельянова", ld: "Cơu̇ ĕmẹ̉lhănova", lat: 46.939407, lng: 142.733541, radius: 40 },
-      { id: "detskaya_bolhnitsa", ru: "Детская больница", ld: "0", lat: 46.942925, lng: 142.732804, radius: 40 },
-      { id: "skver_pogranichnikov", ru: "Сквер пограничников", ld: "0", lat: 46.945222, lng: 142.732371, radius: 40 },
-      { id: "gorodskaya_duma", ru: "Городская дума", ld: "0", lat: 46.950825, lng: 142.731266, radius: 40 },
-      { id: "institutskaya", ru: "ул.Институтская", ld: "0", lat: 46.953493, lng: 142.730688, radius: 40 },
-      { id: "dom_byta", ru: "Дом Быта", ld: "0", lat: 46.955777, lng: 142.730283, radius: 40 },
-      { id: "ys_vokzal",  ru: "Ж/д Вокзал г.Южно-Сахалинск",  ld: "0",    lat: 46.957833, lng: 142.726524, radius: 40 }
+      { id: "avtoniva", ru: "Автовокзал г.Анива", ld: "Kơrão", lat: 46.719538, lng: 142.524285, radius: 40 },
+      { id: "pudova", ru: "ул.Пудова", ld: "Cơu̇ Puđova", lat: 46.715176, lng: 142.530081, radius: 40 },
+      { id: "sadyp", ru: "Сады", ld: "0", lat: 46.712081, lng: 142.541276, radius: 40 },
+      { id: "kibanec_2", ru: "Кубанец-2", ld: "0", lat: 46.711335, lng: 142.550894, radius: 40 },
+      { id: "kubanec_1", ru: "Кубанец-1", ld: "493828", lat: 46.718257, lng: 142.569071, radius: 40 },
+      { id: "peschanskoye",  ru: "Песчанское",  ld: "Pẹ̉shanxcoĕ",    lat: 46.723114, lng: 142.588463, radius: 40 }
+    ]
+  },
+  "106": {
+    number: "106",
+    stops: [
+      { id: "avtoniva", ru: "Автовокзал г.Анива", ld: "Kơrão", lat: 46.719538, lng: 142.524285, radius: 40 },
+      { id: "pudova", ru: "ул.Пудова", ld: "Cơu̇ Puđova", lat: 46.715176, lng: 142.530081, radius: 40 },
+      { id: "rybatskoye",  ru: "Рыбацкое",  ld: "Rưƀaƹcoĕ",    lat: 46.698421, lng: 142.522346, radius: 40 }
     ]
   }
 };
