@@ -1,3 +1,5 @@
+// Маршруты города Южно-Сахалинск (озвучка: audio/yuzhno/<id>.mp3)
+const ROUTES_YUZHNO = {
   "1": {
     number: "1",
     stops: [
