@@ -3,47 +3,83 @@ const ROUTES_ANIVA = {
   "102": {
     number: "102",
     stops: [
-      { id: "avtoniva", ru: "Автовокзал г.Анива", ld: "Kơrão", lat: 46.719538, lng: 142.524285, radius: 40 },
-      { id: "crb_potrb", ru: "ЦРБ (по требованию)", ld: "CRB", lat: 46.721474, lng: 142.515191, radius: 40 },
-      { id: "zarechnaya", ru: "ул.Заречная", ld: "zks", lat: 46.725967, lng: 142.509278, radius: 40 },
-      { id: "zolotorybnoye", ru: "Золоторыбное", ld: "Zlteb", lat: 46.674655, lng: 142.482640, radius: 40 },
-      { id: "pogranichnoye", ru: "Пограничное", ld: "0", lat: 46.665388, lng: 142.470782, radius: 40 },
-      { id: "pervomayskaya", ru: "ул.Первомайска", ld: "prvm", lat: 46.629239, lng: 142.435421, radius: 40 },
-      { id: "taranai",  ru: "Таранай",  ld: "0",    lat: 46.620890, lng: 142.428983, radius: 40 }
+      { id: "avtoniva", ru: "Автовокзал г.Анива", ld: "Автовокзал г.Анива", lat: 46.719538, lng: 142.524285, radius: 40 },
+      { id: "crb_potrb", ru: "ЦРБ (по требованию)", ld: "ЦРБ (по требованию)", lat: 46.721474, lng: 142.515191, radius: 40 },
+      { id: "zarechnaya", ru: "ул.Заречная", ld: "ул.Заречная", lat: 46.725967, lng: 142.509278, radius: 40 },
+      { id: "zolotorybnoye", ru: "Золоторыбное", ld: "Золоторыбное", lat: 46.674655, lng: 142.482640, radius: 40 },
+      { id: "pogranichnoye", ru: "Пограничное", ld: "Пограничное", lat: 46.665388, lng: 142.470782, radius: 40 },
+      { id: "pervomayskaya", ru: "ул.Первомайска", ld: "ул.Первомайская", lat: 46.629239, lng: 142.435421, radius: 40 },
+      { id: "taranai",  ru: "Таранай",  ld: "Таранай",    lat: 46.620890, lng: 142.428983, radius: 40 }
     ]
   },
   "103": {
     number: "103",
     stops: [
-      { id: "avtoniva", ru: "Автовокзал г.Анива", ld: "Kơrão", lat: 46.719538, lng: 142.524285, radius: 40 },
-      { id: "crb_potrb", ru: "ЦРБ (по требованию)", ld: "CRB", lat: 46.721474, lng: 142.515191, radius: 40 },
-      { id: "zarechnaya", ru: "ул.Заречная", ld: "zarech", lat: 46.727830, lng: 142.510439, radius: 40 },
-      { id: "sady", ru: "Сады", ld: "0", lat: 46.746278, lng: 142.510659, radius: 40 },
-      { id: "blagoveschenskoye", ru: "Благовещенское", ld: "0", lat: 46.756430, lng: 142.502751, radius: 40 },
-      { id: "urozhaynoye", ru: "Урожайное", ld: "0", lat: 46.788156, lng: 142.445555, radius: 40 },
-      { id: "syap", ru: "Сады Ясные Поляны", ld: "0", lat: 46.788667, lng: 142.437203, radius: 40 },
-      { id: "pnso", ru: "Поворот на с.Огоньки", ld: "0", lat: 46.789101, lng: 142.387467, radius: 40 },
-      { id: "vysokoye", ru: "Высокое", ld: "0", lat: 46.812713, lng: 142.318401, radius: 40 },
-      { id: "ogonki",  ru: "Огоньки",  ld: "Ogonhci",    lat: 46.780719, lng: 142.391550, radius: 40 }
+      { id: "avtoniva", ru: "Автовокзал г.Анива", ld: "Автовокзал г.Анива", lat: 46.719538, lng: 142.524285, radius: 40 },
+      { id: "crb_potrb", ru: "ЦРБ (по требованию)", ld: "ЦРБ (по требованию)", lat: 46.721474, lng: 142.515191, radius: 40 },
+      { id: "zarechnaya", ru: "ул.Заречная", ld: "ул.Заречная", lat: 46.727830, lng: 142.510439, radius: 40 },
+      { id: "sady", ru: "Сады", ld: "Сады", lat: 46.746278, lng: 142.510659, radius: 40 },
+      { id: "blagoveschenskoye", ru: "Благовещенское", ld: "Благовещенское", lat: 46.756430, lng: 142.502751, radius: 40 },
+      { id: "urozhaynoye", ru: "Урожайное", ld: "Урожайное", lat: 46.788156, lng: 142.445555, radius: 40 },
+      { id: "syap", ru: "Сады Ясные Поляны", ld: "Сады Ясные Поляны", lat: 46.788667, lng: 142.437203, radius: 40 },
+      { id: "pnso", ru: "Поворот на с.Огоньки", ld: "Поворот на с.Огоньки", lat: 46.789101, lng: 142.387467, radius: 40 },
+      { id: "vysokoye", ru: "Высокое", ld: "Высокое", lat: 46.812713, lng: 142.318401, radius: 40 },
+      { id: "ogonki",  ru: "Огоньки",  ld: "Огоньки",    lat: 46.780719, lng: 142.391550, radius: 40 }
     ]
   },
   "104": {
     number: "104",
     stops: [
-      { id: "avtoniva", ru: "Автовокзал г.Анива", ld: "Kơrão", lat: 46.719538, lng: 142.524285, radius: 40 },
-      { id: "pudova", ru: "ул.Пудова", ld: "Cơu̇ Puđova", lat: 46.715176, lng: 142.530081, radius: 40 },
-      { id: "sadyp", ru: "Сады", ld: "0", lat: 46.712081, lng: 142.541276, radius: 40 },
-      { id: "kibanec_2", ru: "Кубанец-2", ld: "0", lat: 46.711335, lng: 142.550894, radius: 40 },
-      { id: "kubanec_1", ru: "Кубанец-1", ld: "493828", lat: 46.718257, lng: 142.569071, radius: 40 },
-      { id: "peschanskoje",  ru: "Песчанское",  ld: "Pẹ̉shanxcoĕ",    lat: 46.723114, lng: 142.588463, radius: 40 }
+      { id: "avtoniva", ru: "Автовокзал г.Анива", ld: "Автовокзал г.Анива", lat: 46.719538, lng: 142.524285, radius: 40 },
+      { id: "pudova", ru: "ул.Пудова", ld: "ул.Пудова", lat: 46.715176, lng: 142.530081, radius: 40 },
+      { id: "sadyp", ru: "Сады", ld: "Сады", lat: 46.712081, lng: 142.541276, radius: 40 },
+      { id: "kibanec_2", ru: "Кубанец-2", ld: "Кубанец-2", lat: 46.711335, lng: 142.550894, radius: 40 },
+      { id: "kubanec_1", ru: "Кубанец-1", ld: "Кубанец-1", lat: 46.718257, lng: 142.569071, radius: 40 },
+      { id: "peschanskoje",  ru: "Песчанское",  ld: "Песчанское",    lat: 46.723114, lng: 142.588463, radius: 40 }
     ]
   },
   "106": {
     number: "106",
     stops: [
-      { id: "avtoniva", ru: "Автовокзал г.Анива", ld: "Kơrão", lat: 46.719538, lng: 142.524285, radius: 40 },
-      { id: "pudova", ru: "ул.Пудова", ld: "Cơu̇ Puđova", lat: 46.715176, lng: 142.530081, radius: 40 },
-      { id: "rybatskoye",  ru: "Рыбацкое",  ld: "Rưƀaƹcoĕ",    lat: 46.698421, lng: 142.522346, radius: 40 }
+      { id: "avtoniva", ru: "Автовокзал г.Анива", ld: "Автовокзал г.Анива", lat: 46.719538, lng: 142.524285, radius: 40 },
+      { id: "pudova", ru: "ул.Пудова", ld: "ул.Пудова", lat: 46.715176, lng: 142.530081, radius: 40 },
+      { id: "rybatskoye",  ru: "Рыбацкое",  ld: "Рыбацкое",    lat: 46.698421, lng: 142.522346, radius: 40 }
+    ]
+  },
+  "111": {
+    number: "111",
+    stops: [
+      { id: "avtoniva", ru: "Автовокзал г.Анива", ld: "Автовокзал г.Анива", lat: 46.719538, lng: 142.524285, radius: 40 },
+      { id: "pudova", ru: "ул.Пудова", ld: "ул.Пудова", lat: 46.715176, lng: 142.530081, radius: 40 },
+      { id: "atp", ru: "АТП", ld: "АТП", lat: 46.722303, lng: 142.541082, radius: 40 },
+      { id: "voscresenskoye_1", ru: "Воскресенское-1", ld: "Воскресенское-1", lat: 46.740217, lng: 142.538325, radius: 40 },
+      { id: "voscresenskoye_2", ru: "Воскресенское-2", ld: "Воскресенское-2", lat: 46.744160, lng: 142.536672, radius: 40 },
+      { id: "dom_invalidov", ru: "Дом Инвалидов", ld: "Дом Инвалидов", lat: 46.761331, lng: 142.525097, radius: 40 },
+      { id: "pnp", ru: "Поворот на Петропавловское", ld: "Поворот на Петропавловское", lat: 46.786198, lng: 142.513311, radius: 40 },
+      { id: "pnp", ru: "Поворот на Петропавловское", ld: "Поворот на Петропавловское", lat: 46.787474, lng: 142.515603, radius: 40 },
+      { id: "vetryaki", ru: "Ветряки", ld: "Ветряки", lat: 46.834347, lng: 142.556284, radius: 40 },
+      { id: "uspenskoye", ru: "Успенское", ld: "Успенское", lat: 46.855130, lng: 142.574871, radius: 40 },
+      { id: "po trebovaniyu", ru: "По требованию", ld: "По требованию", lat: 46.879248, lng: 142.607961, radius: 40 },
+      { id: "soya", ru: "Садовое общество Ягодка", ld: "Садовое общество Ягодка", lat: 46.903252, lng: 142.622316, radius: 40 },
+      { id: "sady drujba", ru: "Сады Дружба", ld: "Сады Дружба", lat: 46.909989, lng: 142.627816, radius: 40 },
+      { id: "opytnaya stanciya", ru: "Опытная станция", ld: "Опытная станция", lat: 46.914902, lng: 142.632264, radius: 40 },
+      { id: "masterskiye", ru: "Мастерские", ld: "Мастерские", lat: 46.919070, lng: 142.636202, radius: 40 },
+      { id: "magazin_terem", ru: "Магазин Терем", ld: "Магазин Терем", lat: 46.926037, lng: 142.645472, radius: 40 },
+      { id: "reka_vahrushevka", ru: "Река Вахрушевка", ld: "Река Вахрушевка", lat: 46.931348, lng: 142.652118, radius: 40 },
+      { id: "obyesdnaya_doroga", ru: "Объездная дорога", ld: "Объездная дорога", lat: 46.944764, lng: 142.677942, radius: 40 },
+      { id: "dachi", ru: "Дачи", ld: "Đachaxão", lat: 46.946496, lng: 142.681584, radius: 40 },
+      { id: "snt_metallist", ru: "СНТ Металлист", ld: "СНТ Металлист", lat: 46.949734, lng: 142.688449, radius: 40 },
+      { id: "abpr", ru: "Автобаза Почты России", ld: "Автобаза Почты России", lat: 46.957953, lng: 142.697400, radius: 40 },
+      { id: "sleza", ru: "Слеза", ld: "Слеза", lat: 46.962515, lng: 142.699360, radius: 40 },
+      { id: "sputnik", ru: "Спутник", ld: "Спутник", lat: 46.962533, lng: 142.705110, radius: 40 },
+      { id: "dostoyevskovo", ru: "ул.Достоевского", ld: "ул.Достоевского", lat: 46.962584, lng: 142.710672, radius: 40 },
+      { id: "kinoprokat", ru: "Кинопрокат", ld: "Кинопрокат", lat: 46.962741, lng: 142.714954, radius: 40 },
+      { id: "pivzavod", ru: "Пивзавод", ld: "Пивзавод", lat: 46.963145, lng: 142.719391, radius: 40 },
+      { id: "rynok", ru: "Рынок", ld: "Рынок", lat: 46.963445, lng: 142.722886, radius: 40 },
+      { id: "kkz_komsomolets", ru: "ККЗ Комсомолец", ld: "ККЗ Комсомолец", lat: 46.963765, lng: 142.726183, radius: 40 },
+      { id: "rynok_vostok", ru: "Рынок Восток", ld: "Рынок Восток", lat: 46.962655, lng: 142.728646, radius: 40 },
+      { id: "glavpochtamt", ru: "Главпочтамт", ld: "Главпочтамт", lat: 46.960222, lng: 142.729170, radius: 40 },
+      { id: "ys_vokzal",     ru: "Ж/д Вокзал г.Южно-Сахалинск",  ld: "Ж/д вокзал г.Южно-Сахалинск", lat: 46.957181, lng: 142.726734, radius: 40 }
     ]
   }
 };
